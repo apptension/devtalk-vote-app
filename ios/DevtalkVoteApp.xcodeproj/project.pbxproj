@@ -27,6 +27,7 @@
 		4F5B706BEF554718A65B8518 /* libjschelpers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 284D4DE7994F46E999807755 /* libjschelpers.a */; };
 		5304B9DBD05485462B67EE9C /* libPods-DevtalkVoteApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E3F7BEC922951188BEA1D5 /* libPods-DevtalkVoteApp.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		5EA973BE1F854436000EE412 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E7AD05D1F84D82600A04FE9 /* GoogleService-Info.plist */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8C7A0A82D44D438AB45ED4D3 /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB216CD306D4824BECD3699 /* libcxxreact.a */; };
 		F8ECBAFECA0E466789D14BCF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70DBE10C2B9641F5ADBC6B02 /* libReact.a */; };
@@ -588,6 +589,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				BB93B4BADD733877D01697A7 /* [CP] Embed Pods Frameworks */,
 				BADEF24E7574D1AF7720BB06 /* [CP] Copy Pods Resources */,
+				5E5FD6C81F85485000DF22AF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -916,6 +918,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				5EA973BE1F854436000EE412 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,6 +971,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DevtalkVoteAppTests/Pods-DevtalkVoteAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5E5FD6C81F85485000DF22AF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 471d75e7c27162a3cfda952332bac06d9e159b41 3d17680c9601f06f6b89cd958cf06960d5d8ebbcfc8cd8ab4354b662f2559882";
 		};
 		9F56E0A5037307E6358112B9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

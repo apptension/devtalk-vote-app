@@ -11,6 +11,8 @@ target 'DevtalkVoteApp' do
   pod 'Firebase/Database'
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Firestore'
+  pod 'Fabric'
+  pod 'Crashlytics'
   pod "Yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
   'BatchedBridge', # Required For React Native 0.45.0+

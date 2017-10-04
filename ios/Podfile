@@ -1,0 +1,36 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'DevtalkVoteApp' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  pod 'Firebase/Core'
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Firestore'
+  pod "Yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+  'BatchedBridge', # Required For React Native 0.45.0+
+  'Core',
+  # Add any other subspecs you want to use in your project
+  ]
+
+  #Also add this at the very bottom of your Podfile
+
+  post_install do |installer|
+      installer.pods_project.targets.each do |target|
+          if target.name == "React"
+              target.remove_from_project
+          end
+      end
+  end
+
+  target 'DevtalkVoteAppTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

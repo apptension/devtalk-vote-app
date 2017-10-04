@@ -3,7 +3,7 @@ package com.devtalkvoteapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.i18n.reactnativei18n.ReactNativeI18n;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -31,7 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-                    new ReactNativeI18n(),
+                    new RNI18nPackage(),
                     new RNFirebasePackage(),
                     new RNFirebaseAuthPackage(),
                     new RNFirebaseRemoteConfigPackage(),

@@ -19,6 +19,7 @@ target 'DevtalkVoteApp' do
   'Core',
   # Add any other subspecs you want to use in your project
   ]
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
 
   #Also add this at the very bottom of your Podfile
 

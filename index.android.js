@@ -1,5 +1,6 @@
-import './App/Config/ReactotronConfig'
-import { AppRegistry } from 'react-native'
-import App from './App/Containers/App'
+import { AppRegistry } from 'react-native';
 
-AppRegistry.registerComponent('DevtalkVoteApp', () => App)
+import './App/Config/ReactotronConfig';
+import App from './App/Containers/App';
+
+AppRegistry.registerComponent('DevtalkVoteApp', () => App);

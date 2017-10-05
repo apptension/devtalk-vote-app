@@ -1,40 +1,55 @@
-import { put, select } from 'redux-saga/effects'
-import GithubActions from '../Redux/GithubRedux'
-import { is } from 'ramda'
+import { eventChannel } from 'redux-saga';
+import { put, take, takeLatest } from 'redux-saga/effects';
+import firebase from 'react-native-firebase';
+import { when, complement, isNil } from 'ramda';
 
-// exported to make available for tests
-export const selectAvatar = (state) => state.github.avatar
+import { StartupTypes } from '../Redux/StartupRedux';
+import UserAuthActions from '../Redux/UserAuthRedux';
+
+const createAuthChannel = () => eventChannel((emitter) => {
+  const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    setTimeout(() => {
+      if (user) {
+        emitter({
+          user,
+          authenticated: true,
+        });
+      } else {
+        emitter({
+          authenticated: false,
+        });
+      }
+    });
+  });
+
+  return () => unsubscribe();
+});
+
+function* listenForAuth() {
+  try {
+    const channel = createAuthChannel();
+
+    while (true) { // eslint-disable-line
+      const { authenticated, user } = yield take(channel);
+
+      yield put(UserAuthActions.authStateChanged({
+        authenticated,
+        user: when(
+          complement(isNil),
+          (user) => user.toJSON()
+        )(user),
+      }));
+    }
+  } catch (error) {
+    console.error(error); // eslint-disable-line
+  }
+}
 
 // process STARTUP actions
-export function * startup (action) {
-  if (__DEV__ && console.tron) {
-    // straight-up string logging
-    console.tron.log('Hello, I\'m an example of how to log via Reactotron.')
-
-    // logging an object for better clarity
-    console.tron.log({
-      message: 'pass objects for better logging',
-      someGeneratorFunction: selectAvatar
-    })
-
-    // fully customized!
-    const subObject = { a: 1, b: [1, 2, 3], c: true }
-    subObject.circularDependency = subObject // osnap!
-    console.tron.display({
-      name: '🔥 IGNITE 🔥',
-      preview: 'You should totally expand this',
-      value: {
-        '💃': 'Welcome to the future!',
-        subObject,
-        someInlineFunction: () => true,
-        someGeneratorFunction: startup,
-        someNormalFunction: selectAvatar
-      }
-    })
-  }
-  const avatar = yield select(selectAvatar)
-  // only get if we don't have it yet
-  if (!is(String, avatar)) {
-    yield put(GithubActions.userRequest('GantMan'))
+export function* watchStartup() {
+  try {
+    yield takeLatest(StartupTypes.STARTUP, listenForAuth);
+  } catch (error) {
+    console.error(error); // eslint-disable-line
   }
 }

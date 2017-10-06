@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "74885368895",
+    "firebase_url": "https://devtalk-vote-app-f8f06.firebaseio.com",
+    "project_id": "devtalk-vote-app-f8f06",
+    "storage_bucket": "devtalk-vote-app-f8f06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74885368895:android:89b7e65e3a47b11a",
+        "android_client_info": {
+          "package_name": "com.apptension.DevtalkVoteApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74885368895-i1pj4jvbbhjdf5kk13hdo8korcen0fu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB13GUMktvPIvdREr3rZJBFrAqJqgMGD0g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,11 +10,11 @@ export default class AdminScreen extends Component {
     navigation: PropTypes.object.isRequired,
   };
 
-  startVote() {
+  handleStartVoteClick() {
 
   }
 
-  stopVote() {
+  handleStopVoteClick() {
 
   }
 
@@ -30,8 +30,8 @@ export default class AdminScreen extends Component {
             </Text>
           </View>
           <View style={styles.section}>
-            <Button title="Start Vote" color={colors.green} onPress={this.startVote} />
-            <Button title="Stop Vote" color={colors.green} onPress={this.stopVote} />
+            <Button title="Start Vote" color={colors.green} onPress={this.handleStartVoteClick} />
+            <Button title="Stop Vote" color={colors.green} onPress={this.handleStopVoteClick} />
           </View>
           <View style={styles.section}>
             <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />

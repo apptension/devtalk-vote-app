@@ -1,4 +1,6 @@
 const colors = {
+  apptension: '#83ff00',
+  green: '#71c567',
   background: '#1F0808',
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
@@ -14,7 +16,7 @@ const colors = {
   charcoal: '#595959',
   coal: '#2d2d2d',
   bloodOrange: '#fb5f26',
-  snow: 'white',
+  snow: '#fff',
   ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
   drawer: 'rgba(30, 30, 29, 0.95)',

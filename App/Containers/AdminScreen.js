@@ -2,13 +2,21 @@ import React, { PropTypes, Component } from 'react';
 import { ScrollView, Text, View, Button } from 'react-native';
 
 // Styles
-import styles from './Styles/LaunchScreenStyles';
+import styles from './Styles/AdminScreenStyles';
 import colors from '../Themes/Colors';
 
-export default class LaunchScreen extends Component {
+export default class AdminScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
+
+  handleStartVoteClick() {
+
+  }
+
+  handleStopVoteClick() {
+
+  }
 
   render() {
     const { navigation } = this.props;
@@ -18,21 +26,15 @@ export default class LaunchScreen extends Component {
         <ScrollView style={styles.container}>
           <View style={styles.section}>
             <Text style={styles.sectionText}>
-              Devtalk vote app!
+              Admin Screen
             </Text>
           </View>
           <View style={styles.section}>
-            <Button title="Admin Panel" color={colors.green} onPress={() => navigation.navigate('AdminScreen')} />
+            <Button title="Start Vote" color={colors.green} onPress={this.handleStartVoteClick} />
+            <Button title="Stop Vote" color={colors.green} onPress={this.handleStopVoteClick} />
           </View>
           <View style={styles.section}>
-            <Button title="Vote Screen" color={colors.green} onPress={() => navigation.navigate('VoteScreen')} />
-          </View>
-          <View style={styles.section}>
-            <Button
-              title="Vote History"
-              color={colors.green}
-              onPress={() => navigation.navigate('VoteHistoryScreen')}
-            />
+            <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />
           </View>
         </ScrollView>
       </View>

@@ -1,7 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import firebase from 'react-native-firebase';
 
-import UserAuthActions, { UserAuthTypes } from '../Redux/UserAuthRedux';
+import { UserAuthActions, UserAuthTypes } from '../Redux/UserAuthRedux';
 
 function* signInAnonymously() {
   try {

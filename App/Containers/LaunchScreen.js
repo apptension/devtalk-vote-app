@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { selectAdminList } from '../Selectors/LaunchScreenSelector';
+import { selectSavedUserData } from '../Selectors/UserAuthSelector';
 import { LaunchScreenActions } from '../Redux/LaunchScreenRedux';
+import { UserAuthActions } from '../Redux/UserAuthRedux';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
@@ -14,10 +16,13 @@ class LaunchScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     fetchAdminList: PropTypes.func.isRequired,
+    fetchUserData: PropTypes.func.isRequired,
+    userData: PropTypes.object,
     adminList: PropTypes.object,
   };
 
   componentWillMount() {
+    this.props.fetchUserData();
     this.props.fetchAdminList();
   }
 
@@ -53,10 +58,12 @@ class LaunchScreen extends Component {
 
 const mapStateToProps = createStructuredSelector({
   adminList: selectAdminList,
+  userData: selectSavedUserData,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchAdminList: LaunchScreenActions.saveAdminList,
+  fetchUserData: UserAuthActions.saveUserData,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen);

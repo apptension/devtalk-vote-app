@@ -1,14 +1,25 @@
 import React, { PropTypes, Component } from 'react';
 import { ScrollView, Text, View, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { selectAdminList } from '../Selectors/LaunchScreenSelector';
+import { LaunchScreenActions } from '../Redux/LaunchScreenRedux';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
 import colors from '../Themes/Colors';
 
-export default class LaunchScreen extends Component {
+class LaunchScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    fetchAdminList: PropTypes.func.isRequired,
+    adminList: PropTypes.object,
   };
+
+  componentWillMount() {
+    this.props.fetchAdminList();
+  }
 
   render() {
     const { navigation } = this.props;
@@ -39,3 +50,13 @@ export default class LaunchScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = createStructuredSelector({
+  adminList: selectAdminList,
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  fetchAdminList: LaunchScreenActions.saveAdminList,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen);

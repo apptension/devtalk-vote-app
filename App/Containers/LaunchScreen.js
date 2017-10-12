@@ -12,7 +12,7 @@ import { selectAdminList } from '../Selectors/LaunchScreenSelector';
 import { selectSavedUserData, selectIsUserAuth } from '../Selectors/UserAuthSelector';
 
 //Actions
-import { LaunchScreenActions } from '../Redux/AdminListRedux';
+import { AdminListActions } from '../Redux/AdminListRedux';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
@@ -69,7 +69,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchAdminList: LaunchScreenActions.fetchAdminList,
+  fetchAdminList: AdminListActions.fetchAdminList,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen);

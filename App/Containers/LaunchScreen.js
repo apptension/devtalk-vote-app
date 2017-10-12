@@ -3,31 +3,39 @@ import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
+//Views
+import { AdminPanelButton } from '../Components/AdminPanelButton';
+
+//Selectors
 import { selectAdminList } from '../Selectors/LaunchScreenSelector';
-import { selectSavedUserData } from '../Selectors/UserAuthSelector';
-import { LaunchScreenActions } from '../Redux/LaunchScreenRedux';
-import { UserAuthActions } from '../Redux/UserAuthRedux';
+import { selectSavedUserData, selectIsUserAuth } from '../Selectors/UserAuthSelector';
+
+//Actions
+import { LaunchScreenActions } from '../Redux/AdminListRedux';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
 import colors from '../Themes/Colors';
 
+
 class LaunchScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     fetchAdminList: PropTypes.func.isRequired,
-    fetchUserData: PropTypes.func.isRequired,
     userData: PropTypes.object,
+    isAuth: PropTypes.bool,
     adminList: PropTypes.object,
   };
 
-  componentWillMount() {
-    this.props.fetchUserData();
-    this.props.fetchAdminList();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuth !== this.props.isAuth && nextProps.isAuth) {
+      this.props.fetchAdminList(nextProps.isAuth);
+    }
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, userData, adminList } = this.props;
 
     return (
       <View style={styles.mainContainer}>
@@ -37,9 +45,7 @@ class LaunchScreen extends Component {
               Devtalk vote app!
             </Text>
           </View>
-          <View style={styles.section}>
-            <Button title="Admin Panel" color={colors.green} onPress={() => navigation.navigate('AdminScreen')} />
-          </View>
+          <AdminPanelButton navigation={navigation} uid={userData.uid} adminList={adminList} />
           <View style={styles.section}>
             <Button title="Vote Screen" color={colors.green} onPress={() => navigation.navigate('VoteScreen')} />
           </View>
@@ -59,11 +65,11 @@ class LaunchScreen extends Component {
 const mapStateToProps = createStructuredSelector({
   adminList: selectAdminList,
   userData: selectSavedUserData,
+  isAuth: selectIsUserAuth,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  fetchAdminList: LaunchScreenActions.saveAdminList,
-  fetchUserData: UserAuthActions.saveUserData,
+  fetchAdminList: LaunchScreenActions.fetchAdminList,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen);

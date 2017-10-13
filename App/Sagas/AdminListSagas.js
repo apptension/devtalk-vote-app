@@ -1,4 +1,4 @@
-import { put, all, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import firebase from 'react-native-firebase';
 
 import { AdminListTypes, AdminListActions } from '../Redux/AdminListRedux';
@@ -16,7 +16,5 @@ export function* fetchAdminList(isAuth) {
 }
 
 export function* adminListSaga() {
-  yield all([
-    takeLatest(AdminListTypes.FETCH_ADMIN_LIST, fetchAdminList),
-  ]);
+  yield takeLatest(AdminListTypes.FETCH_ADMIN_LIST, fetchAdminList);
 }

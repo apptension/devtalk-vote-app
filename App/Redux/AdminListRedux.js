@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types: AdminListTypes, Creators: AdminListActions } = createActions({
-  fetchAdminList: ['flag'],
+  fetchAdminList: [],
   fetchAdminListSuccess: ['data'],
 });
 

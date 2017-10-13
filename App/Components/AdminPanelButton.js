@@ -8,14 +8,13 @@ import colors from '../Themes/Colors';
 export class AdminPanelButton extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
-    uid: PropTypes.string,
-    adminList: PropTypes.object,
+    isAdmin: PropTypes.bool,
   };
 
   render() {
-    const { navigation, uid, adminList } = this.props;
+    const { navigation, isAdmin } = this.props;
 
-    if (!adminList[uid]) {
+    if (!isAdmin) {
       return null;
     }
 

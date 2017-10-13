@@ -6,6 +6,6 @@ export const selectSavedUserData = createSelector(
   selectUserAuthDomain, state => state.data
 );
 
-export const selectIsUserAuth = createSelector(
+export const selectIsUserAuthenticated = createSelector(
   selectUserAuthDomain, state => state.isAuth
 );

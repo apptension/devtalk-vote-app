@@ -8,8 +8,8 @@ import { createStructuredSelector } from 'reselect';
 import { AdminPanelButton } from '../Components/AdminPanelButton';
 
 //Selectors
-import { selectAdminList } from '../Selectors/LaunchScreenSelector';
-import { selectSavedUserData, selectIsUserAuth } from '../Selectors/UserAuthSelector';
+import { selectIsAdmin } from '../Selectors/AdminListSelector';
+import { selectSavedUserData, selectIsUserAuthenticated } from '../Selectors/UserAuthSelector';
 
 //Actions
 import { AdminListActions } from '../Redux/AdminListRedux';
@@ -23,19 +23,18 @@ class LaunchScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     fetchAdminList: PropTypes.func.isRequired,
-    userData: PropTypes.object,
-    isAuth: PropTypes.bool,
-    adminList: PropTypes.object,
+    isAdmin: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isAuth !== this.props.isAuth && nextProps.isAuth) {
-      this.props.fetchAdminList(nextProps.isAuth);
+    if (nextProps.isAuthenticated !== this.props.isAuthenticated) {
+      this.props.fetchAdminList(nextProps.isAuthenticated);
     }
   }
 
   render() {
-    const { navigation, userData, adminList } = this.props;
+    const { navigation, isAdmin } = this.props;
 
     return (
       <View style={styles.mainContainer}>
@@ -45,7 +44,7 @@ class LaunchScreen extends Component {
               Devtalk vote app!
             </Text>
           </View>
-          <AdminPanelButton navigation={navigation} uid={userData.uid} adminList={adminList} />
+          <AdminPanelButton navigation={navigation} isAdmin={isAdmin} />
           <View style={styles.section}>
             <Button title="Vote Screen" color={colors.green} onPress={() => navigation.navigate('VoteScreen')} />
           </View>
@@ -63,9 +62,9 @@ class LaunchScreen extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  adminList: selectAdminList,
   userData: selectSavedUserData,
-  isAuth: selectIsUserAuth,
+  isAuthenticated: selectIsUserAuthenticated,
+  isAdmin: selectIsAdmin(selectSavedUserData),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

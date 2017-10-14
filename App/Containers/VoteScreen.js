@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import {bindActionCreators} from "redux";
 
 import { selectIsPollAvailable, selectPoll, selectVote } from '../Selectors/VotingSelectors';
-import { VotingActions } from '../Redux/VotingRedux';
+import { VotingActions, VOTE_STATUS_VOTED } from '../Redux/VotingRedux';
 
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from './Styles/VoteScreenStyles';
@@ -49,24 +49,50 @@ export class VoteScreenComponent extends Component {
     });
   };
 
+  renderVoteButtons = () => (
+    <View>
+      <View style={styles.section}>
+        <Text style={styles.sectionText}>
+          Vote now
+        </Text>
+      </View>
+      <View style={styles.voteContainer}>
+        { this.generateButtons(this.votePoints) }
+      </View>
+    </View>
+  );
+
+
+  renderVoteInfo = () => {
+    const { vote } = this.props;
+    return (
+      <View>
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>
+            Your vote: {vote.value}
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>
+            Waiting for poll end.
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  alreadyVoted = () => {
+    const { vote } = this.props;
+    return vote.status === VOTE_STATUS_VOTED;
+  };
+
   render() {
     const { navigation, poll, vote } = this.props;
 
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
-          <View style={styles.section}>
-            <Text style={styles.sectionText}>
-              Poll Status - {poll.status}
-              {"\n"}
-              Vote Status - {vote.status}
-              {"\n"}
-              Your Vote - {vote.value}
-            </Text>
-          </View>
-          <View style={styles.voteContainer}>
-            { this.generateButtons(this.votePoints) }
-          </View>
+          { this.alreadyVoted() ? this.renderVoteInfo() : this.renderVoteButtons() }
           <View style={styles.section}>
             <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />
           </View>

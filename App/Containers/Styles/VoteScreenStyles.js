@@ -1,5 +1,9 @@
 import { StyleSheet } from 'react-native';
+import tinycolor from 'tinycolor2';
 import { Metrics, ApplicationStyles } from '../../Themes/';
+
+export const VOTE_BUTTON_COLOR_RAW = '#ff684f';
+export const VOTE_BUTTON_COLOR = tinycolor(VOTE_BUTTON_COLOR_RAW);
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -22,7 +26,11 @@ export default StyleSheet.create({
     flexShrink: 1,
     flexGrow: 1,
     justifyContent: 'center',
-    backgroundColor: 'red',
+    backgroundColor: VOTE_BUTTON_COLOR.toString(),
     alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: 'bold',
   }
 });

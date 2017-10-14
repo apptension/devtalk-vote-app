@@ -3,8 +3,10 @@ import { ScrollView, Text, View, Button, TouchableHighlight } from 'react-native
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { createStructuredSelector } from 'reselect';
+import {bindActionCreators} from "redux";
 
 import { selectIsPollAvailable, selectPoll, selectVote } from '../Selectors/VotingSelectors';
+import { VotingActions } from '../Redux/VotingRedux';
 
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from './Styles/VoteScreenStyles';
@@ -20,11 +22,7 @@ export class VoteScreenComponent extends Component {
 
   votePoints = [1,2,3,4];
 
-  handleVoteClick = (value) => {
-    const { onVote } = this.props;
-    console.log(value);
-    // onVote(value);
-  };
+  handleVoteClick = (value) => { this.props.onVote(value); };
 
   generateButtons = (points) => {
     return points.map((vote, index) => {
@@ -53,8 +51,7 @@ export class VoteScreenComponent extends Component {
 
   render() {
     const { navigation, poll, vote } = this.props;
-    console.log(vote);
-    console.log(poll);
+
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
@@ -63,6 +60,8 @@ export class VoteScreenComponent extends Component {
               Poll Status - {poll.status}
               {"\n"}
               Vote Status - {vote.status}
+              {"\n"}
+              Your Vote - {vote.value}
             </Text>
           </View>
           <View style={styles.voteContainer}>
@@ -82,8 +81,8 @@ const mapStateToProps = createStructuredSelector({
   vote: selectVote,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onVote: (value) => {alert(`Zaglosowales: ${value}`);}
-});
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  onVote: VotingActions.sendVote,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(VoteScreenComponent);

@@ -14,15 +14,19 @@ export const POLL_AVAILABLE_STATUSES = [
 export const VOTE_STATUS_NOT_VOTED = 'not-voted';
 export const VOTE_STATUS_VOTED = 'voted';
 
-export const { Types: VoteScreenTypes, Creators: VoteScreenActions } = createActions({
+export const { Types: VotingTypes, Creators: VotingActions } = createActions({
   fetchPoll: [],
   fetchPollSuccess: ['data'],
+  sendVote: ['value'],
+  sendVoteSuccess: ['data'],
 });
 
 const INITIAL_STATE = Immutable({
   poll: {
-    status: POLL_STATUS_NOT_STARTED,
+    id: null,
+    status: POLL_STATUS_STARTED,
     name: '',
+    results: [],
   },
   vote: {
     status: VOTE_STATUS_NOT_VOTED,
@@ -32,6 +36,11 @@ const INITIAL_STATE = Immutable({
 
 const fetchPollSuccessHandler = (state, { data }) => state.set('poll', Immutable(data));
 
+const sendVoteSuccessHandler = (state, { data }) => {
+  return (state.setIn(['vote', 'status'], VOTE_STATUS_VOTED).setIn(['vote', 'value'], data.value));
+};
+
 export const reducer = createReducer(INITIAL_STATE, {
-  [VoteScreenTypes.FETCH_POLL_SUCCESS]: fetchPollSuccessHandler,
+  [VotingTypes.FETCH_POLL_SUCCESS]: fetchPollSuccessHandler,
+  [VotingTypes.SEND_VOTE_SUCCESS]: sendVoteSuccessHandler,
 });

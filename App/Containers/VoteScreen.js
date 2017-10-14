@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { ScrollView, Text, View, Button, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
+import { StyleSheet } from 'react-native';
 
 // Styles
-import styles from './Styles/VoteScreenStyles';
+import styles, { VOTE_BUTTON_COLOR } from './Styles/VoteScreenStyles';
 import colors from '../Themes/Colors';
 
 export class VoteScreenComponent extends Component {
@@ -12,14 +13,38 @@ export class VoteScreenComponent extends Component {
     onVote: PropTypes.func.isRequired,
   };
 
+  votePoints = [1,2,3,4];
+
   handleVoteClick = (value) => {
     const { onVote } = this.props;
     console.log(value);
-    onVote(value);
+    // onVote(value);
   };
 
   render() {
     const { navigation } = this.props;
+
+    const buttons  = this.votePoints.map((vote, index) => {
+      const color = VOTE_BUTTON_COLOR.clone().darken(4*index);
+      const highlightColor = color.clone().lighten(4);
+      const buttonStyle = StyleSheet.create({
+        button: {
+          backgroundColor: color.toString(),
+        }
+      });
+
+      return (
+        <TouchableHighlight
+          style={[styles.voteButton, buttonStyle.button]}
+          onPress={() => this.handleVoteClick(vote)}
+          underlayColor={highlightColor.toString()}
+          key={index}
+        >
+          <View>
+            <Text style={styles.buttonText}>{ vote }</Text>
+          </View>
+        </TouchableHighlight>
+      )});
 
     return (
       <View style={styles.mainContainer}>
@@ -30,26 +55,7 @@ export class VoteScreenComponent extends Component {
             </Text>
           </View>
           <View style={styles.voteContainer}>
-            <TouchableHighlight style={styles.voteButton} onPress={() => this.handleVoteClick(1)} underlayColor="orange">
-              <View>
-                <Text>1</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.voteButton} onPress={() => this.handleVoteClick(2)} underlayColor="orange">
-              <View>
-                <Text>2</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.voteButton} onPress={() => this.handleVoteClick(3)} underlayColor="orange">
-              <View>
-                <Text>3</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.voteButton} onPress={() => this.handleVoteClick(4)} underlayColor="orange">
-              <View>
-                <Text>4</Text>
-              </View>
-            </TouchableHighlight>
+            { buttons }
           </View>
           <View style={styles.section}>
             <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />

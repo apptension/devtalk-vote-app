@@ -6,6 +6,10 @@ import Immutable from 'seamless-immutable';
 export const POLL_STATUS_NOT_STARTED = 'not-started';
 export const POLL_STATUS_STARTED = 'started';
 export const POLL_STATUS_RESULTS = 'results';
+export const POLL_AVAILABLE_STATUSES = [
+  POLL_STATUS_STARTED,
+  POLL_STATUS_RESULTS
+];
 
 export const VOTE_STATUS_NOT_VOTED = 'not-voted';
 export const VOTE_STATUS_VOTED = 'voted';
@@ -17,7 +21,7 @@ export const { Types: VoteScreenTypes, Creators: VoteScreenActions } = createAct
 
 const INITIAL_STATE = Immutable({
   poll: {
-    status: VOTING_STATUS_NOT_STARTED,
+    status: POLL_STATUS_NOT_STARTED,
     name: '',
   },
   vote: {

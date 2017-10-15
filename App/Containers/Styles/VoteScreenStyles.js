@@ -32,5 +32,23 @@ export default StyleSheet.create({
   buttonText: {
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  total: {
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  resultsList: {
+    marginTop: 10,
+    paddingHorizontal: Metrics.marginHorizontal,
+  },
+  resultLine: {
+    textAlign: 'center',
+    marginBottom: 3,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  voteQuantity: {
+    fontWeight: 'bold'
   }
 });

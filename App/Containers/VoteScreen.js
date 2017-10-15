@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import {bindActionCreators} from "redux";
 
 import { selectIsPollAvailable, selectPoll, selectVote } from '../Selectors/VotingSelectors';
-import { VotingActions, VOTE_STATUS_VOTED } from '../Redux/VotingRedux';
+import {VotingActions, VOTE_STATUS_VOTED, POLL_STATUS_SUMMARY} from '../Redux/VotingRedux';
 
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from './Styles/VoteScreenStyles';
@@ -18,6 +18,7 @@ export class VoteScreenComponent extends Component {
     poll: PropTypes.object.isRequired,
     vote: PropTypes.object.isRequired,
     onVote: PropTypes.func.isRequired,
+    onClosePoll: PropTypes.func.isRequired,
   };
 
   votePoints = [1,2,3,4];
@@ -49,18 +50,21 @@ export class VoteScreenComponent extends Component {
     });
   };
 
-  renderVoteButtons = () => (
-    <View>
-      <View style={styles.section}>
-        <Text style={styles.sectionText}>
-          Vote now
-        </Text>
+  renderVoteButtons = () => {
+    const { poll } = this.props;
+    return (
+      <View>
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>
+            Vote now - {poll.status}
+          </Text>
+        </View>
+        <View style={styles.voteContainer}>
+          { this.generateButtons(this.votePoints) }
+        </View>
       </View>
-      <View style={styles.voteContainer}>
-        { this.generateButtons(this.votePoints) }
-      </View>
-    </View>
-  );
+    );
+  };
 
 
   renderVoteInfo = () => {
@@ -81,20 +85,53 @@ export class VoteScreenComponent extends Component {
     );
   };
 
+  renderResults = () => {
+    const { poll } = this.props;
+    let results = poll.results.asMutable();
+    return (
+      <View>
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>
+            Poll results
+          </Text>
+          <Text style={styles.total}>Total: {poll.total}</Text>
+        </View>
+        <View style={styles.resultsList}>
+          { Object.keys(results).map((point, index) => (
+            <Text key={index} style={styles.resultLine}>
+              <Text style={styles.votePoints}>{point} points - </Text>
+              <Text style={styles.voteQuantity}>{results[point]} votes{"\n"}</Text>
+            </Text>
+          )) }
+        </View>
+      </View>
+    );
+  };
+
   alreadyVoted = () => {
     const { vote } = this.props;
     return vote.status === VOTE_STATUS_VOTED;
   };
 
   render() {
-    const { navigation, poll, vote } = this.props;
-
+    const { navigation, poll, onClosePoll } = this.props;
+    let content = null;
+    if (poll.status === POLL_STATUS_SUMMARY) {
+      content = this.renderResults();
+    } else {
+      content = this.alreadyVoted() ? this.renderVoteInfo() : this.renderVoteButtons();
+    }
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
-          { this.alreadyVoted() ? this.renderVoteInfo() : this.renderVoteButtons() }
+
+          { content }
+
           <View style={styles.section}>
             <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />
+          </View>
+          <View style={styles.section}>
+            <Button title="close Poll" color={colors.green} onPress={() => onClosePoll()} />
           </View>
         </ScrollView>
       </View>
@@ -109,6 +146,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onVote: VotingActions.sendVote,
+  onClosePoll: VotingActions.closePoll,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(VoteScreenComponent);

@@ -1,11 +1,12 @@
 import { all, takeLatest } from 'redux-saga/effects';
 import firebase from 'react-native-firebase';
+import round from 'lodash/round';
 
 import { AdminCommandsTypes } from '../Redux/AdminCommandsRedux';
 
 export function* startVote() {
   try {
-    yield firebase.database().ref('votes2').push({ isClosed: false });
+    yield firebase.database().ref('votingSession').set({ isClosed: false });
   } catch (error) {
     console.error(error); // eslint-disable-line
   }
@@ -13,7 +14,16 @@ export function* startVote() {
 
 export function* stopVote() {
   try {
-    // yield firebase.database().ref('votes2').update({ isClosed: false });
+    const votesSnapshot = yield firebase.database().ref('votingSession/votes').once('value');
+    const votes = votesSnapshot.val();
+
+    const votersCount = votesSnapshot.numChildren();
+    const sum = Object.keys(votes).reduce((previous, key) => previous + votes[key], 0);
+
+    const score = round(sum / votersCount, 2);
+
+    yield firebase.database().ref('votingSession').set({ isClosed: true });
+    yield new Promise(() => firebase.database().ref('results').push({ score, date: new Date(), votersCount }));
   } catch (error) {
     console.error(error); // eslint-disable-line
   }

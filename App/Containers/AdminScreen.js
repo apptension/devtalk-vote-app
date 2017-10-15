@@ -14,16 +14,17 @@ import colors from '../Themes/Colors';
 class AdminScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
-    startVoting: PropTypes.func,
+    startVoting: PropTypes.func.isRequired,
+    stopVoting: PropTypes.func.isRequired,
   };
 
   handleStartVoteClick = () => {
     this.props.startVoting();
   };
 
-  handleStopVoteClick() {
-
-  }
+  handleStopVoteClick = () => {
+    this.props.stopVoting();
+  };
 
   render() {
     const { navigation } = this.props;
@@ -56,6 +57,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   startVoting: AdminCommandsActions.startVote,
+  stopVoting: AdminCommandsActions.stopVote,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminScreen);

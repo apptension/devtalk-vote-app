@@ -1,12 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollView, Text, View, Button, TouchableHighlight } from 'react-native';
+import { ScrollView, Text, View, Button, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { StyleSheet } from 'react-native';
 import { createStructuredSelector } from 'reselect';
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from 'redux';
 
-import { selectIsPollAvailable, selectPoll, selectVote } from '../Selectors/VotingSelectors';
-import {VotingActions, VOTE_STATUS_VOTED, POLL_STATUS_SUMMARY} from '../Redux/VotingRedux';
+import { selectPoll, selectVote } from '../Selectors/VotingSelectors';
+import { VotingActions, VOTE_STATUS_VOTED, POLL_STATUS_SUMMARY } from '../Redux/VotingRedux';
 
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from './Styles/VoteScreenStyles';
@@ -21,18 +20,18 @@ export class VoteScreenComponent extends Component {
     onClosePoll: PropTypes.func.isRequired,
   };
 
-  votePoints = [1,2,3,4];
+  votePoints = [1, 2, 3, 4];
 
   handleVoteClick = (value) => { this.props.onVote(value); };
 
-  generateButtons = (points) => {
-    return points.map((vote, index) => {
-      const color = VOTE_BUTTON_COLOR.clone().darken(4*index);
+  generateButtons = (points) =>
+    points.map((vote, index) => {
+      const color = VOTE_BUTTON_COLOR.clone().darken(4 * index);
       const highlightColor = color.clone().lighten(4);
       const buttonStyle = StyleSheet.create({
         button: {
           backgroundColor: color.toString(),
-        }
+        },
       });
 
       return (
@@ -48,6 +47,10 @@ export class VoteScreenComponent extends Component {
         </TouchableHighlight>
       );
     });
+
+  alreadyVoted = () => {
+    const { vote } = this.props;
+    return vote.status === VOTE_STATUS_VOTED;
   };
 
   renderVoteButtons = () => {
@@ -100,17 +103,12 @@ export class VoteScreenComponent extends Component {
           { Object.keys(results).map((point, index) => (
             <Text key={index} style={styles.resultLine}>
               <Text style={styles.votePoints}>{point} points - </Text>
-              <Text style={styles.voteQuantity}>{results[point]} votes{"\n"}</Text>
+              <Text style={styles.voteQuantity}>{results[point]} votes{'\n'}</Text>
             </Text>
           )) }
         </View>
       </View>
     );
-  };
-
-  alreadyVoted = () => {
-    const { vote } = this.props;
-    return vote.status === VOTE_STATUS_VOTED;
   };
 
   render() {

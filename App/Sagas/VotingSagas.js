@@ -1,6 +1,4 @@
 import { takeLatest, put, all } from 'redux-saga/effects';
-import firebase from 'react-native-firebase';
-
 import { VotingActions, VotingTypes } from '../Redux/VotingRedux';
 
 export function* sendVote(value) {
@@ -19,8 +17,8 @@ export function* closePoll() {
       ['3']: 8,
       ['4']: 2,
     };
-    const total = Object.keys(results).reduce((sum, point) => (sum += point*results[point]), 0);
-    yield put(VotingActions.closePollSuccess({results, total}));
+    const total = Object.keys(results).reduce((sum, point) => (sum += point * results[point]), 0);
+    yield put(VotingActions.closePollSuccess({ results, total }));
   } catch (error) {
     console.error(error); // eslint-disable-line
   }

@@ -19,6 +19,8 @@ export const { Types: VotingTypes, Creators: VotingActions } = createActions({
   fetchPollSuccess: ['data'],
   sendVote: ['value'],
   sendVoteSuccess: ['data'],
+  closePoll: [],
+  closePollSuccess: ['data'],
 });
 
 const INITIAL_STATE = Immutable({
@@ -27,6 +29,7 @@ const INITIAL_STATE = Immutable({
     status: POLL_STATUS_ACTIVE,
     name: '',
     results: [],
+    total: 0,
   },
   vote: {
     status: VOTE_STATUS_NOT_VOTED,
@@ -36,11 +39,18 @@ const INITIAL_STATE = Immutable({
 
 const fetchPollSuccessHandler = (state, { data }) => state.set('poll', Immutable(data));
 
+const closePollSuccessHandler = (state, { data }) => {
+  return state.setIn(['poll', 'status'], POLL_STATUS_SUMMARY)
+              .setIn(['poll', 'results'], data.results)
+              .setIn(['poll', 'total'], data.total);
+};
+
 const sendVoteSuccessHandler = (state, { data }) => {
-  return (state.setIn(['vote', 'status'], VOTE_STATUS_VOTED).setIn(['vote', 'value'], data.value));
+  return state.setIn(['vote', 'status'], VOTE_STATUS_VOTED).setIn(['vote', 'value'], data.value);
 };
 
 export const reducer = createReducer(INITIAL_STATE, {
   [VotingTypes.FETCH_POLL_SUCCESS]: fetchPollSuccessHandler,
   [VotingTypes.SEND_VOTE_SUCCESS]: sendVoteSuccessHandler,
+  [VotingTypes.CLOSE_POLL_SUCCESS]: closePollSuccessHandler,
 });

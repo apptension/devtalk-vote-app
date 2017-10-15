@@ -1,8 +1,12 @@
 import { takeLatest, put, all } from 'redux-saga/effects';
 import { VotingActions, VotingTypes } from '../Redux/VotingRedux';
 
-export function* sendVote(value) {
+export function* sendVote(action) {
+  const {uid, value} = action;
+
   try {
+    yield firebase.database().ref('votingTest/votes').update({ [uid]: value });
+
     yield put(VotingActions.sendVoteSuccess(value));
   } catch (error) {
     console.error(error); // eslint-disable-line

@@ -10,6 +10,7 @@ import { VotingActions, VOTE_STATUS_VOTED, POLL_STATUS_SUMMARY } from '../Redux/
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from './Styles/VoteScreenStyles';
 import colors from '../Themes/Colors';
+import {selectSavedUserData} from "../Selectors/UserAuthSelector";
 
 export class VoteScreenComponent extends Component {
   static propTypes = {
@@ -18,11 +19,15 @@ export class VoteScreenComponent extends Component {
     vote: PropTypes.object.isRequired,
     onVote: PropTypes.func.isRequired,
     onClosePoll: PropTypes.func.isRequired,
+    userData: PropTypes.object.isRequired,
   };
 
   votePoints = [1, 2, 3, 4];
 
-  handleVoteClick = (value) => { this.props.onVote(value); };
+  handleVoteClick = (value) => {
+    const {uid} = this.props.userData
+    this.props.onVote(uid,value);
+  };
 
   generateButtons = (points) =>
     points.map((vote, index) => {
@@ -140,6 +145,7 @@ export class VoteScreenComponent extends Component {
 const mapStateToProps = createStructuredSelector({
   poll: selectPoll,
   vote: selectVote,
+  userData: selectSavedUserData,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -3,12 +3,12 @@ import Immutable from 'seamless-immutable';
 
 /* ------------- Types and Action Creators ------------- */
 
-export const POLL_STATUS_NOT_STARTED = 'not-started';
-export const POLL_STATUS_STARTED = 'started';
-export const POLL_STATUS_RESULTS = 'results';
+export const POLL_STATUS_IDLE = 'idle';
+export const POLL_STATUS_ACTIVE = 'active';
+export const POLL_STATUS_SUMMARY = 'summary';
 export const POLL_AVAILABLE_STATUSES = [
-  POLL_STATUS_STARTED,
-  POLL_STATUS_RESULTS
+  POLL_STATUS_ACTIVE,
+  POLL_STATUS_SUMMARY
 ];
 
 export const VOTE_STATUS_NOT_VOTED = 'not-voted';
@@ -24,7 +24,7 @@ export const { Types: VotingTypes, Creators: VotingActions } = createActions({
 const INITIAL_STATE = Immutable({
   poll: {
     id: null,
-    status: POLL_STATUS_STARTED,
+    status: POLL_STATUS_ACTIVE,
     name: '',
     results: [],
   },

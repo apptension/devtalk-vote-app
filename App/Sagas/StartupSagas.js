@@ -4,7 +4,7 @@ import firebase from 'react-native-firebase';
 import { when, complement, isNil } from 'ramda';
 
 import { StartupTypes } from '../Redux/StartupRedux';
-import UserAuthActions from '../Redux/UserAuthRedux';
+import { UserAuthActions } from '../Redux/UserAuthRedux';
 
 const createAuthChannel = () => eventChannel((emitter) => {
   const unsubscribe = firebase.auth().onAuthStateChanged((user) => {

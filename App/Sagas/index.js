@@ -7,6 +7,7 @@ import { watchUserAuth } from './UserAuthSagas';
 import { adminCommandsSaga } from './AdminCommandsSagas';
 import { adminListSaga } from './AdminListSagas';
 import { votingSaga } from './VotingSagas';
+import { voteHistorySaga } from './VoteHistorySagas';
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -18,6 +19,7 @@ export default function* root() {
       fork(adminCommandsSaga),
       fork(adminListSaga),
       fork(votingSaga),
+      fork(voteHistorySaga),
     ]);
   } catch (error) {
     console.error(error); // eslint-disable-line

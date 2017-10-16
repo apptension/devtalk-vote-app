@@ -7,6 +7,7 @@ import { reducer as userAuthReducer } from './UserAuthRedux';
 import { reducer as adminCommandsReducer } from './AdminCommandsRedux';
 import { reducer as launchScreenReducer } from './AdminListRedux';
 import { reducer as votingReducer } from './VotingRedux';
+import { reducer as voteHistoryReducer } from './VoteHistoryRedux';
 
 export default () => {
   /* ------------- Assemble The Reducers ------------- */
@@ -16,6 +17,7 @@ export default () => {
     adminCommands: adminCommandsReducer,
     launchScreen: launchScreenReducer,
     voting: votingReducer,
+    voteHistory: voteHistoryReducer,
   });
 
   return configureStore(rootReducer, rootSaga);

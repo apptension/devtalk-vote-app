@@ -21,8 +21,8 @@ export function* stopVote() {
 
     const score = Math.round(sum / votersCount).toFixed(2);
 
-    // yield firebase.database().ref('votingSession').set({ isClosed: true });
-    yield new Promise(() => firebase.database().ref('results').push({ score, date: new Date(), votersCount }));
+    yield firebase.database().ref('votingSession').set({ isClosed: true });
+    yield new Promise(() => firebase.database().ref('results').push({ score, date: Date.now(), votersCount }));
   } catch (error) {
     console.error(error); // eslint-disable-line
   }

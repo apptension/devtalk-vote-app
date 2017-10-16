@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Text, View } from 'react-native';
-import size from 'lodash/size';
+import * as moment from 'moment';
 
 // Styles
 import styles from '../Containers/Styles/LaunchScreenStyles';
@@ -11,9 +11,9 @@ export class HistoryViewList extends Component {
   };
 
   render() {
-    const { voteHistory } = this.props;
+    const voteHistory = Object.values(this.props.voteHistory);
 
-    if (!size(voteHistory)) {
+    if (!voteHistory.length) {
       return (
         <Text style={styles.sectionText}>
           No Results!
@@ -23,9 +23,20 @@ export class HistoryViewList extends Component {
 
     return (
       <View style={styles.section}>
-        <Text style={styles.sectionText}>
-          Results!
-        </Text>
+        {voteHistory.map((item, index) => (
+          <View key={index} style={styles.section}>
+            <Text>
+              Date: {moment.unix(item.date).format('MMMM Do YYYY, H:mm:ss')}
+            </Text>
+            <Text>
+              Score: {item.score}
+            </Text>
+            <Text>
+              Voters: {item.votersCount}
+            </Text>
+          </View>
+
+        ))}
       </View>
     );
   }

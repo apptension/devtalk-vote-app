@@ -3649,7 +3649,7 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
-lodash@4.17.4, lodash@^4.14.0, lodash@^4.16.6, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
+lodash@4.17.4, lodash@^4.14.0, lodash@^4.16.6, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4332,7 +4332,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8:
+prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -4482,12 +4482,12 @@ react-native-drawer@^2.3.0:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
-react-native-firebase@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-3.0.0.tgz#f98dbe77530107e3ff1bf29c427db5016a515b9a"
+react-native-firebase@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-3.0.3.tgz#bb86bfd445f50ae57e00f22dfa99285dabe109f3"
   dependencies:
     bows "^1.6.0"
-    prop-types "^15.5.10"
+    prop-types "^15.6.0"
 
 react-native-i18n@^2.0.6:
   version "2.0.6"

@@ -13,7 +13,5 @@ export const selectVote = createSelector(
 );
 
 export const selectIsPollAvailable = createSelector(
-  selectPoll, state => {
-    return (POLL_AVAILABLE_STATUSES.indexOf(state.status) > -1);
-  }
+  selectPoll, state => POLL_AVAILABLE_STATUSES.indexOf(state.status) > -1
 );

@@ -1,22 +1,30 @@
 import React, { PropTypes, Component } from 'react';
 import { ScrollView, Text, View, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
+
+//Actions
+import { AdminCommandsActions } from '../Redux/AdminCommandsRedux';
 
 // Styles
 import styles from './Styles/AdminScreenStyles';
 import colors from '../Themes/Colors';
 
-export default class AdminScreen extends Component {
+class AdminScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    startVoting: PropTypes.func.isRequired,
+    stopVoting: PropTypes.func.isRequired,
   };
 
-  handleStartVoteClick() {
+  handleStartVoteClick = () => {
+    this.props.startVoting();
+  };
 
-  }
-
-  handleStopVoteClick() {
-
-  }
+  handleStopVoteClick = () => {
+    this.props.stopVoting();
+  };
 
   render() {
     const { navigation } = this.props;
@@ -41,3 +49,15 @@ export default class AdminScreen extends Component {
     );
   }
 }
+
+
+const mapStateToProps = createStructuredSelector({
+
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  startVoting: AdminCommandsActions.startVote,
+  stopVoting: AdminCommandsActions.stopVote,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminScreen);

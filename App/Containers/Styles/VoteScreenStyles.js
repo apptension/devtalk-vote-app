@@ -19,7 +19,7 @@ export default StyleSheet.create({
     alignItems: 'stretch',
     alignContent: 'stretch',
     flexGrow: 4,
-    height: 300
+    height: 300,
   },
   voteButton: {
     flexBasis: '49%',
@@ -49,6 +49,6 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   voteQuantity: {
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });

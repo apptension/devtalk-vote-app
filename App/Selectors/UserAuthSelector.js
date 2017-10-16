@@ -9,3 +9,7 @@ export const selectSavedUserData = createSelector(
 export const selectIsUserAuthenticated = createSelector(
   selectUserAuthDomain, state => state.isAuth
 );
+
+export const selectUserUid = createSelector(
+  selectUserAuthDomain, state => state.data.uid
+);

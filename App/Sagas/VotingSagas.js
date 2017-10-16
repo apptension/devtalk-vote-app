@@ -1,28 +1,42 @@
 import { takeLatest, put, all } from 'redux-saga/effects';
-import { VotingActions, VotingTypes } from '../Redux/VotingRedux';
+import firebase from 'react-native-firebase';
+import {
+  VotingActions, VotingTypes,
+  POLL_STATUS_IDLE, POLL_STATUS_ACTIVE, POLL_STATUS_SUMMARY,
+} from '../Redux/VotingRedux';
 
-export function* sendVote(action) {
-  const {uid, value} = action;
+export function* getStatus(action) {
+  const { uid } = action;
 
   try {
-    yield firebase.database().ref('votingTest/votes').update({ [uid]: value });
+    const votingSessionSnapshot = yield firebase.database().ref('votingSession').once('value');
+    const votingSession = votingSessionSnapshot.val();
 
-    yield put(VotingActions.sendVoteSuccess(value));
+    if (!votingSession.isClosed) {
+      if (votingSession.votes) {
+        if (votingSession.votes[uid]) {
+          yield put(VotingActions.getStatusSuccess(POLL_STATUS_IDLE));
+        } else {
+          yield put(VotingActions.getStatusSuccess(POLL_STATUS_ACTIVE));
+        }
+      } else {
+        yield put(VotingActions.getStatusSuccess(POLL_STATUS_ACTIVE));
+      }
+    } else {
+      yield put(VotingActions.getStatusSuccess(POLL_STATUS_SUMMARY));
+    }
   } catch (error) {
     console.error(error); // eslint-disable-line
   }
 }
 
-export function* closePoll() {
+export function* sendVote(action) {
+  const { uid, value } = action;
+
   try {
-    const results = {
-      ['1']: 2,
-      ['2']: 4,
-      ['3']: 8,
-      ['4']: 2,
-    };
-    const total = Object.keys(results).reduce((sum, point) => (sum += point * results[point]), 0);
-    yield put(VotingActions.closePollSuccess({ results, total }));
+    yield firebase.database().ref('votingSession/votes').update({ [uid]: value });
+
+    yield put(VotingActions.sendVoteSuccess(value));
   } catch (error) {
     console.error(error); // eslint-disable-line
   }
@@ -31,7 +45,7 @@ export function* closePoll() {
 export function* votingSaga() {
   yield all([
     takeLatest(VotingTypes.SEND_VOTE, sendVote),
-    takeLatest(VotingTypes.CLOSE_POLL, closePoll),
+    takeLatest(VotingTypes.GET_STATUS, getStatus),
   ]);
 }
 

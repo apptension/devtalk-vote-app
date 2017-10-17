@@ -1,16 +1,45 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Text, View } from 'react-native';
+import moment from 'moment';
 
 // Styles
 import styles from '../Containers/Styles/VoteScreenStyles';
 
 export class VoteResults extends Component {
+  static propTypes = {
+    fetchVoteHistory: PropTypes.func.isRequired,
+    result: PropTypes.object,
+  };
+
+  componentDidMount() {
+    if (!this.props.result) {
+      this.props.fetchVoteHistory();
+    }
+  }
+
   render() {
+    const { result } = this.props;
+
+    if (!result) {
+      return null;
+    }
+
     return (
       <View>
         <View style={styles.section}>
           <Text style={styles.sectionText}>
-            Poll results
+            Poll results:
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>
+            Date: {moment.unix(result.date).format('DD-MM-YYYY, H:mm:ss')}
+          </Text>
+          <Text style={styles.sectionText}>
+            Score: {`${result.score}`}
+          </Text>
+          <Text style={styles.sectionText}>
+            Voters: {`${result.votersCount}`}
           </Text>
         </View>
       </View>

@@ -11,6 +11,10 @@ import { VoteResults } from '../Components/VoteResults';
 
 // Selectors
 import { selectStatus } from '../Selectors/VotingSelectors';
+import { selectFirstSortedElement } from '../Selectors/VoteHistorySelector';
+
+// Redux
+import { VoteHistoryActions } from '../Redux/VoteHistoryRedux';
 import { VotingActions, POLL_STATUS_ACTIVE, POLL_STATUS_IDLE, POLL_STATUS_SUMMARY } from '../Redux/VotingRedux';
 
 // Styles
@@ -23,7 +27,9 @@ export class VoteScreenComponent extends Component {
     navigation: PropTypes.object.isRequired,
     onVote: PropTypes.func.isRequired,
     getStatus: PropTypes.func.isRequired,
+    fetchVoteHistory: PropTypes.func.isRequired,
     status: PropTypes.string,
+    result: PropTypes.object,
     uid: PropTypes.string,
   };
 
@@ -32,10 +38,10 @@ export class VoteScreenComponent extends Component {
   }
 
   getComponent() {
-    const { status, onVote, uid } = this.props;
+    const { status, onVote, uid, result, fetchVoteHistory } = this.props;
     const componentMap = {
       [POLL_STATUS_IDLE]: <VoteInfo />,
-      [POLL_STATUS_SUMMARY]: <VoteResults />,
+      [POLL_STATUS_SUMMARY]: <VoteResults result={result} fetchVoteHistory={fetchVoteHistory} />,
       [POLL_STATUS_ACTIVE]: <VoteButtons status={status} onVote={onVote} uid={uid} />,
     };
 
@@ -61,11 +67,13 @@ export class VoteScreenComponent extends Component {
 const mapStateToProps = createStructuredSelector({
   status: selectStatus,
   uid: selectUserUid,
+  result: selectFirstSortedElement,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onVote: VotingActions.sendVote,
   getStatus: VotingActions.getStatus,
+  fetchVoteHistory: VoteHistoryActions.fetchVoteHistory,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(VoteScreenComponent);

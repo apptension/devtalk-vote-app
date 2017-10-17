@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import { HistoryViewList } from '../Components/HistoryViewList';
 
 //Selectors
-import { selectVoteHistory } from '../Selectors/VoteHistorySelector';
+import { selectSortedVoteHistory } from '../Selectors/VoteHistorySelector';
 
 //Actions
 import { VoteHistoryActions } from '../Redux/VoteHistoryRedux';
@@ -21,7 +21,7 @@ class VoteHistoryScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     fetchVoteHistory: PropTypes.func.isRequired,
-    voteHistory: PropTypes.object,
+    voteHistory: PropTypes.array,
   };
 
   componentDidMount() {
@@ -50,7 +50,7 @@ class VoteHistoryScreen extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  voteHistory: selectVoteHistory,
+  voteHistory: selectSortedVoteHistory,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -3,8 +3,6 @@ import { Body, Button, Header, Icon, Left, Right, Title } from 'native-base';
 
 
 export class AppHeader extends Component {
-
-
   render() {
     const { leftSideFn, leftIcon, rightSideFn, rightIcon, title } = this.props;
 

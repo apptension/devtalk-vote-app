@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { Body, Button, Content, Container, Header, Title, Icon } from 'native-base';
+import { Content, Container, Text } from 'native-base';
 import {AppHeader} from './../Components/AppHeader';
 
 // Styles
 import styles from '../Containers/Styles/VoteScreenStyles';
+import colors from '../Themes/Colors';
 
 export class VoteInfo extends Component {
 
@@ -12,7 +12,7 @@ export class VoteInfo extends Component {
     const { navigation } = this.props;
 
     return (
-      <Container>
+      <Container style={{backgroundColor: colors.snow}}>
         <AppHeader
           leftSideFn={navigation.goBack}
           leftIcon='arrow-back'

@@ -54,6 +54,7 @@ export class VoteButtons extends Component {
           leftIcon='arrow-back'
           title={`Vote now`}
         />
+        <Text>status: {status}</Text>
         <View style={styles.voteContainer}>
           { this.generateButtons() }
         </View>

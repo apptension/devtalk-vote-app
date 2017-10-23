@@ -6,6 +6,7 @@ import { Content, Container} from 'native-base';
 
 // Styles
 import styles from '../Containers/Styles/VoteScreenStyles';
+import colors from '../Themes/Colors';
 
 export class VoteResults extends Component {
   static propTypes = {
@@ -27,7 +28,7 @@ export class VoteResults extends Component {
     }
 
     return (
-      <Container>
+      <Container style={{backgroundColor: colors.snow}}>
         <AppHeader
           leftSideFn={navigation.goBack}
           leftIcon='arrow-back'

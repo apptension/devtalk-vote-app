@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Button, Content, Container, Text } from 'native-base';
-import { AppHeader } from './../Components/AppHeader';
 
 import { AdminCommandsActions } from '../Redux/AdminCommandsRedux';
+import { VotingActions, POLL_STATUS_ACTIVE } from '../Redux/VotingRedux';
+
+import { selectStatus } from '../Selectors/VotingSelectors';
+
+import { AppHeader } from './../Components/AppHeader';
 
 import styles from './Styles/AdminScreenStyles';
 import colors from '../Themes/Colors';
@@ -26,7 +30,7 @@ class AdminScreen extends Component {
   };
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, status } = this.props;
 
     return (
       <Container style={{backgroundColor: colors.snow}}>
@@ -36,10 +40,10 @@ class AdminScreen extends Component {
           title={`Admin Panel`}
         />
         <Content style={styles.content}>
-          <Button style={styles.button} onPress={this.handleStartVoteClick}>
+          <Button style={styles.button} onPress={this.handleStartVoteClick} disabled={status === POLL_STATUS_ACTIVE}>
             <Text style={styles.buttonText}>Start voting</Text>
           </Button>
-          <Button style={styles.button} onPress={this.handleStopVoteClick}>
+          <Button style={styles.button} onPress={this.handleStopVoteClick} disabled={status !== POLL_STATUS_ACTIVE}>
             <Text style={styles.buttonText}>Stop voting</Text>
           </Button>
         </Content>
@@ -50,12 +54,13 @@ class AdminScreen extends Component {
 
 
 const mapStateToProps = createStructuredSelector({
-
+  status: selectStatus,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   startVoting: AdminCommandsActions.startVote,
   stopVoting: AdminCommandsActions.stopVote,
+  getStatus: VotingActions.getStatus
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminScreen);

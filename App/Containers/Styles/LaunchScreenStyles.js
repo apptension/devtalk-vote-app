@@ -3,16 +3,24 @@ import { Metrics, ApplicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
-  container: {
-    paddingBottom: Metrics.baseMargin,
+  item: {
+    marginLeft: 0,
+    paddingLeft: 10,
+    width: '100%',
   },
-  logo: {
-    marginTop: Metrics.doubleSection,
-    height: Metrics.images.logo,
-    width: Metrics.images.logo,
-    resizeMode: 'contain',
-  },
-  centered: {
+  itemBody: {
     alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
   },
+  itemDate: {
+    color: '#aaaaaa',
+    fontSize: 10,
+    textAlign: 'center'
+  },
+  icon: {
+    color: '#3fc133',
+    marginRight: 5
+  }
 });

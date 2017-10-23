@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { Text, View } from 'react-native';
 import moment from 'moment';
+import { AppHeader } from './../Components/AppHeader';
+import { Content, Container} from 'native-base';
 
 // Styles
 import styles from '../Containers/Styles/VoteScreenStyles';
@@ -18,19 +20,19 @@ export class VoteResults extends Component {
   }
 
   render() {
-    const { result } = this.props;
+    const { navigation, result } = this.props;
 
     if (!result) {
       return null;
     }
 
     return (
-      <View>
-        <View style={styles.section}>
-          <Text style={styles.sectionText}>
-            Poll results:
-          </Text>
-        </View>
+      <Container>
+        <AppHeader
+          leftSideFn={navigation.goBack}
+          leftIcon='arrow-back'
+          title={`Results`}
+        />
         <View style={styles.section}>
           <Text style={styles.sectionText}>
             Date: {moment.unix(result.date).format('DD-MM-YYYY, H:mm:ss')}
@@ -42,7 +44,7 @@ export class VoteResults extends Component {
             Voters: {`${result.votersCount}`}
           </Text>
         </View>
-      </View>
+      </Container>
     );
   }
 }

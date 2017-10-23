@@ -1,13 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { Button, Content, Container, Text } from 'native-base';
+import { AppHeader } from './../Components/AppHeader';
 
-//Actions
 import { AdminCommandsActions } from '../Redux/AdminCommandsRedux';
 
-// Styles
 import styles from './Styles/AdminScreenStyles';
 import colors from '../Themes/Colors';
 
@@ -30,22 +29,21 @@ class AdminScreen extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={styles.mainContainer}>
-        <ScrollView style={styles.container}>
-          <View style={styles.section}>
-            <Text style={styles.sectionText}>
-              Admin Screen
-            </Text>
-          </View>
-          <View style={styles.section}>
-            <Button title="Start Vote" color={colors.green} onPress={this.handleStartVoteClick} />
-            <Button title="Stop Vote" color={colors.green} onPress={this.handleStopVoteClick} />
-          </View>
-          <View style={styles.section}>
-            <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />
-          </View>
-        </ScrollView>
-      </View>
+      <Container style={{backgroundColor: colors.snow}}>
+        <AppHeader
+          leftSideFn={navigation.goBack}
+          leftIcon='arrow-back'
+          title={`Admin Panel`}
+        />
+        <Content style={styles.content}>
+          <Button style={styles.button} onPress={this.handleStartVoteClick}>
+            <Text style={styles.buttonText}>Start voting</Text>
+          </Button>
+          <Button style={styles.button} onPress={this.handleStopVoteClick}>
+            <Text style={styles.buttonText}>Stop voting</Text>
+          </Button>
+        </Content>
+    </Container>
     );
   }
 }

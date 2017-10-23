@@ -3,10 +3,18 @@ import { Metrics, ApplicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
-  container: {
-    paddingBottom: Metrics.baseMargin,
+  content: {
+    padding: Metrics.baseMargin,
   },
-  centered: {
-    alignItems: 'center',
+  button: {
+    backgroundColor: '#3fc133',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+    width: '100%'
   },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center'
+  }
 });

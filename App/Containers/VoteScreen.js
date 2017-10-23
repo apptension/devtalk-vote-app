@@ -38,11 +38,11 @@ export class VoteScreenComponent extends Component {
   }
 
   getComponent() {
-    const { status, onVote, uid, result, fetchVoteHistory } = this.props;
+    const { status, onVote, uid, result, fetchVoteHistory, navigation } = this.props;
     const componentMap = {
-      [POLL_STATUS_IDLE]: <VoteInfo />,
-      [POLL_STATUS_SUMMARY]: <VoteResults result={result} fetchVoteHistory={fetchVoteHistory} />,
-      [POLL_STATUS_ACTIVE]: <VoteButtons status={status} onVote={onVote} uid={uid} />,
+      [POLL_STATUS_IDLE]: <VoteInfo navigation={navigation}/>,
+      [POLL_STATUS_SUMMARY]: <VoteResults result={result} fetchVoteHistory={fetchVoteHistory} navigation={navigation}/>,
+      [POLL_STATUS_ACTIVE]: <VoteButtons status={status} onVote={onVote} uid={uid} navigation={navigation} />,
     };
 
     return componentMap[status] || null;

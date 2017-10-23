@@ -96,7 +96,7 @@ PODS:
   - React/cxxreact_legacy (0.47.2):
     - React/jschelpers_legacy
   - React/jschelpers_legacy (0.47.2)
-  - RNFirebase (3.0.0):
+  - RNFirebase (3.0.3):
     - React
   - RNI18n (2.0.6):
     - React
@@ -148,7 +148,7 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
   React: fbe1a006550fb55871cb377ba7741f5d1cfff733
-  RNFirebase: 2ceda3aef595ea1379bf5bfcc1cd9ee7d6c05d3b
+  RNFirebase: d0b48f1179eb809e44e2d1a73dbabee9264210a7
   RNI18n: 33ffd0fbdd92874392eff4e2412f83367ac7368c
   Yoga: ff8531e8cf9f7ec92a75dd44286a68c4a084c507
 

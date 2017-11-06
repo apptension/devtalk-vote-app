@@ -4,13 +4,17 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Button, Content, Container, Text } from 'native-base/src';
 
-import { AdminCommandsActions } from '../Redux/AdminCommandsRedux';
-import { VotingActions } from '../Redux/VotingRedux';
-
-import { selectStatus } from '../Selectors/VotingSelectors';
-
+// Views
 import { AppHeader } from './../Components/AppHeader';
 
+// Selectors
+import { selectStatus } from '../Selectors/VotingSelectors';
+
+// Redux
+import { AdminCommandsActions } from '../Redux/AdminCommandsRedux';
+import { VotingActions, POLL_STATUS_ACTIVE, POLL_STATUS_IDLE } from '../Redux/VotingRedux';
+
+// Styles
 import styles from './Styles/AdminScreenStyles';
 import colors from '../Themes/Colors';
 
@@ -35,7 +39,7 @@ class AdminScreen extends Component {
     this.props.getStatus(this.props.uid);
 
     this.setState({
-      isActiveVoting: this.props.status === 'active' || this.props.status === 'idle',
+      isActiveVoting: this.props.status === POLL_STATUS_ACTIVE || this.props.status === POLL_STATUS_IDLE,
     });
   }
 

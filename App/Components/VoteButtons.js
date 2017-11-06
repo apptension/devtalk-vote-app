@@ -4,11 +4,12 @@ import { Container, Text } from 'native-base';
 
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from '../Containers/Styles/VoteScreenStyles';
-import {AppHeader} from './../Components/AppHeader';
+import { AppHeader } from './../Components/AppHeader';
 
 export class VoteButtons extends Component {
   static propTypes = {
     onVote: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
     status: PropTypes.string,
     uid: PropTypes.string,
   };
@@ -45,16 +46,15 @@ export class VoteButtons extends Component {
   }
 
   render() {
-    const { navigation, status } = this.props;
+    const { navigation } = this.props;
 
     return (
       <Container>
         <AppHeader
           leftSideFn={navigation.goBack}
-          leftIcon='arrow-back'
-          title={`Vote now`}
+          leftIcon="arrow-back"
+          title="Vote now"
         />
-        <Text>status: {status}</Text>
         <View style={styles.voteContainer}>
           { this.generateButtons() }
         </View>

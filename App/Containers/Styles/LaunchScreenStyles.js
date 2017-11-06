@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, ApplicationStyles } from '../../Themes/';
+import { ApplicationStyles } from '../../Themes/';
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -12,15 +12,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   itemDate: {
     color: '#aaaaaa',
     fontSize: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   icon: {
     color: '#3fc133',
-    marginRight: 5
-  }
+    marginRight: 5,
+  },
 });

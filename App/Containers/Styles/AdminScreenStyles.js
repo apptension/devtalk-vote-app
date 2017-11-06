@@ -15,6 +15,13 @@ export default StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
+  buttonDisabled: {
+    backgroundColor: '#b4ceb1',
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+    width: '100%',
+  },
 });

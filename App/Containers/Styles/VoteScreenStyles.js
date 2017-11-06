@@ -5,6 +5,7 @@ import { Metrics, ApplicationStyles } from '../../Themes/';
 export const VOTE_BUTTON_COLOR_RAW = '#3fc133';
 export const VOTE_BUTTON_COLOR = tinycolor(VOTE_BUTTON_COLOR_RAW);
 
+
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {

@@ -1,19 +1,12 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { Container, Text } from 'native-base';
 
-import colors from '../Themes/Colors';
+import styles from './Styles/AppBodyStyles';
 
 export class AppBody extends Component {
-  static propTypes = {
-    isAdmin: PropTypes.bool,
-  };
-
   render() {
-
-    const { isAdmin } = this.props;
-
     return (
-      <Container style={{backgroundColor: colors.snow, padding: 20}}>
+      <Container style={styles.container} >
         <Text>Devtalk Vote App</Text>
       </Container>
     );

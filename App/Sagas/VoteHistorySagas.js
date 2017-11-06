@@ -14,5 +14,9 @@ export function* fetchVoteHistory() {
 }
 
 export function* voteHistorySaga() {
-  yield takeLatest(VoteHistoryTypes.FETCH_VOTE_HISTORY, fetchVoteHistory);
+  try {
+    yield takeLatest(VoteHistoryTypes.FETCH_VOTE_HISTORY, fetchVoteHistory);
+  } catch (error) {
+    console.error(error); // eslint-disable-line
+  }
 }

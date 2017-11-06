@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Body, Content, Left, List, ListItem, Title, Text, Right, Icon } from 'native-base';
+import { Body, Content, List, ListItem, Text, Right, Icon } from 'native-base';
 
 import moment from 'moment';
 
@@ -28,11 +28,11 @@ export class HistoryViewList extends Component {
           <ListItem key={index} style={styles.item}>
             <Body style={styles.itemBody}>
               <Content>
-                <Icon active name='trophy' style={styles.icon}/>
+                <Icon active name="trophy" style={styles.icon} />
                 <Text>{item.score}</Text>
               </Content>
               <Content>
-                <Icon active name='person' style={styles.icon}/>
+                <Icon active name="person" style={styles.icon} />
                 <Text>{item.votersCount}</Text>
               </Content>
             </Body>

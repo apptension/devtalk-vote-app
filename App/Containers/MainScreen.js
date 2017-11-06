@@ -9,8 +9,8 @@ import { selectSavedUserData, selectIsUserAuthenticated } from '../Selectors/Use
 
 import { AdminListActions } from '../Redux/AdminListRedux';
 
-import {AppHeader} from './../Components/AppHeader';
-import {AppBody} from './../Components/AppBody';
+import { AppHeader } from './../Components/AppHeader';
+import { AppBody } from './../Components/AppBody';
 import Sidebar from './../Components/Sidebar';
 
 class MainScreen extends Component {
@@ -29,11 +29,11 @@ class MainScreen extends Component {
   }
 
   closeDrawer = () => {
-    this.drawer._root.close()
+    this.drawer._root.close();
   };
 
   openDrawer = () => {
-    this.drawer._root.open()
+    this.drawer._root.open();
   };
 
   render() {
@@ -42,12 +42,13 @@ class MainScreen extends Component {
     return (
       <Drawer
         ref={(ref) => { this.drawer = ref; }}
-        content={<Sidebar isAdmin={isAdmin} navigation={navigation}/>}
-        onClose={() => this.closeDrawer()} >
+        content={<Sidebar isAdmin={isAdmin} navigation={navigation} />}
+        onClose={() => this.closeDrawer()}
+      >
         <AppHeader
           leftSideFn={this.openDrawer.bind(this)}
-          leftIcon='menu'
-          title='DevtalkVotes'
+          leftIcon="menu"
+          title="DevtalkVotes"
         />
         <AppBody />
       </Drawer>

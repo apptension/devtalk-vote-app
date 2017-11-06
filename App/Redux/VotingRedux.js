@@ -18,7 +18,7 @@ const INITIAL_STATE = Immutable({
   status: POLL_STATUS_ACTIVE,
 });
 
-const sendVoteSuccessHandler = (state, {}) => state.set('status', POLL_STATUS_IDLE);
+const sendVoteSuccessHandler = (state) => state.set('status', POLL_STATUS_IDLE);
 
 const getStatusSuccessHandler = (state, { status }) => state.set('status', status);
 

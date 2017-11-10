@@ -1,25 +1,19 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
+import { Drawer } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-//Views
-import { AdminPanelButton } from '../Components/AdminPanelButton';
-
-//Selectors
 import { selectIsAdmin } from '../Selectors/AdminListSelector';
 import { selectSavedUserData, selectIsUserAuthenticated } from '../Selectors/UserAuthSelector';
 
-//Actions
 import { AdminListActions } from '../Redux/AdminListRedux';
 
-// Styles
-import styles from './Styles/LaunchScreenStyles';
-import colors from '../Themes/Colors';
+import { AppHeader } from './../Components/AppHeader';
+import { AppBody } from './../Components/AppBody';
+import Sidebar from './../Components/Sidebar';
 
-
-class LaunchScreen extends Component {
+class MainScreen extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     fetchAdminList: PropTypes.func.isRequired,
@@ -34,34 +28,30 @@ class LaunchScreen extends Component {
     }
   }
 
+  closeDrawer = () => {
+    this.drawer._root.close();
+  };
+
+  openDrawer = () => {
+    this.drawer._root.open();
+  };
+
   render() {
     const { navigation, isAdmin } = this.props;
 
     return (
-      <View style={styles.mainContainer}>
-        <ScrollView style={styles.container}>
-          <View style={styles.section}>
-            <Text style={styles.sectionText}>
-              Devtalk vote app!
-            </Text>
-          </View>
-          <AdminPanelButton navigation={navigation} isAdmin={isAdmin} />
-          <View style={styles.section}>
-            <Button
-              title="Vote Screen"
-              color={colors.green}
-              onPress={() => navigation.navigate('VoteScreen')}
-            />
-          </View>
-          <View style={styles.section}>
-            <Button
-              title="Vote History"
-              color={colors.green}
-              onPress={() => navigation.navigate('VoteHistoryScreen')}
-            />
-          </View>
-        </ScrollView>
-      </View>
+      <Drawer
+        ref={(ref) => { this.drawer = ref; }}
+        content={<Sidebar isAdmin={isAdmin} navigation={navigation} />}
+        onClose={() => this.closeDrawer()}
+      >
+        <AppHeader
+          leftSideFn={this.openDrawer.bind(this)}
+          leftIcon="menu"
+          title="DevtalkVotes"
+        />
+        <AppBody />
+      </Drawer>
     );
   }
 }
@@ -76,4 +66,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   fetchAdminList: AdminListActions.fetchAdminList,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(LaunchScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

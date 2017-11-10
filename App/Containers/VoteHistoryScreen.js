@@ -1,11 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollView, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { Content, Container } from 'native-base/src';
 
 //Views
 import { HistoryViewList } from '../Components/HistoryViewList';
+import { AppHeader } from '../Components/AppHeader';
 
 //Selectors
 import { selectSortedVoteHistory } from '../Selectors/VoteHistorySelector';
@@ -14,7 +15,6 @@ import { selectSortedVoteHistory } from '../Selectors/VoteHistorySelector';
 import { VoteHistoryActions } from '../Redux/VoteHistoryRedux';
 
 // Styles
-import styles from './Styles/VoteHistoryScreenStyles';
 import colors from '../Themes/Colors';
 
 class VoteHistoryScreen extends Component {
@@ -32,19 +32,17 @@ class VoteHistoryScreen extends Component {
     const { navigation, voteHistory } = this.props;
 
     return (
-      <View style={styles.mainContainer}>
-        <ScrollView style={styles.container}>
-          <View style={styles.section}>
-            <Text style={styles.sectionText}>
-              Vote History!
-            </Text>
-          </View>
+      <Container style={{ backgroundColor: colors.snow }}>
+        <AppHeader
+          leftSideFn={navigation.goBack}
+          leftIcon="arrow-back"
+          title="Vote History"
+        />
+        <Content>
           <HistoryViewList voteHistory={voteHistory} />
-          <View style={styles.section}>
-            <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />
-          </View>
-        </ScrollView>
-      </View>
+        </Content>
+      </Container>
+
     );
   }
 }

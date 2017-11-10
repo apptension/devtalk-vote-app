@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollView, View, Button } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
@@ -19,7 +19,6 @@ import { VotingActions, POLL_STATUS_ACTIVE, POLL_STATUS_IDLE, POLL_STATUS_SUMMAR
 
 // Styles
 import styles from './Styles/VoteScreenStyles';
-import colors from '../Themes/Colors';
 import { selectUserUid } from '../Selectors/UserAuthSelector';
 
 export class VoteScreenComponent extends Component {
@@ -38,26 +37,22 @@ export class VoteScreenComponent extends Component {
   }
 
   getComponent() {
-    const { status, onVote, uid, result, fetchVoteHistory } = this.props;
+    const { status, onVote, uid, result, fetchVoteHistory, navigation } = this.props;
     const componentMap = {
-      [POLL_STATUS_IDLE]: <VoteInfo />,
-      [POLL_STATUS_SUMMARY]: <VoteResults result={result} fetchVoteHistory={fetchVoteHistory} />,
-      [POLL_STATUS_ACTIVE]: <VoteButtons status={status} onVote={onVote} uid={uid} />,
+      [POLL_STATUS_IDLE]: <VoteInfo navigation={navigation} />,
+      [POLL_STATUS_SUMMARY]:
+        <VoteResults result={result} fetchVoteHistory={fetchVoteHistory} navigation={navigation} />,
+      [POLL_STATUS_ACTIVE]: <VoteButtons status={status} onVote={onVote} uid={uid} navigation={navigation} />,
     };
 
     return componentMap[status] || null;
   }
 
   render() {
-    const { navigation } = this.props;
-
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
           { this.getComponent() }
-          <View style={styles.section}>
-            <Button title="Back" color={colors.green} onPress={() => navigation.goBack()} />
-          </View>
         </ScrollView>
       </View>
     );

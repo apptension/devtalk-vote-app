@@ -16,5 +16,9 @@ export function* fetchAdminList(isAuth) {
 }
 
 export function* adminListSaga() {
-  yield takeLatest(AdminListTypes.FETCH_ADMIN_LIST, fetchAdminList);
+  try {
+    yield takeLatest(AdminListTypes.FETCH_ADMIN_LIST, fetchAdminList);
+  } catch (error) {
+    console.error(error); // eslint-disable-line
+  }
 }

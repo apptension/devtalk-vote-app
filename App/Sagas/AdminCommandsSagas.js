@@ -29,8 +29,12 @@ export function* stopVote() {
 }
 
 export function* adminCommandsSaga() {
-  yield all([
-    takeLatest(AdminCommandsTypes.START_VOTE, startVote),
-    takeLatest(AdminCommandsTypes.STOP_VOTE, stopVote),
-  ]);
+  try {
+    yield all([
+      takeLatest(AdminCommandsTypes.START_VOTE, startVote),
+      takeLatest(AdminCommandsTypes.STOP_VOTE, stopVote),
+    ]);
+  } catch (error) {
+    console.error(error); // eslint-disable-line
+  }
 }

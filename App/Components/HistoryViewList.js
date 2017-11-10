@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Text, View } from 'react-native';
+import { Body, Content, List, ListItem, Text, Right, Icon } from 'native-base';
+
 import moment from 'moment';
 
 // Styles
@@ -22,21 +23,27 @@ export class HistoryViewList extends Component {
     }
 
     return (
-      <View style={styles.section}>
+      <List style={styles.list}>
         {voteHistory.map((item, index) => (
-          <View key={index} style={styles.section}>
-            <Text>
-              Date: {moment.unix(item.date).format('DD-MM-YYYY, H:mm:ss')}
-            </Text>
-            <Text>
-              Score: {item.score}
-            </Text>
-            <Text>
-              Voters: {item.votersCount}
-            </Text>
-          </View>
+          <ListItem key={index} style={styles.item}>
+            <Body style={styles.itemBody}>
+              <Content>
+                <Icon active name="trophy" style={styles.icon} />
+                <Text>{item.score}</Text>
+              </Content>
+              <Content>
+                <Icon active name="person" style={styles.icon} />
+                <Text>{item.votersCount}</Text>
+              </Content>
+            </Body>
+            <Right>
+              <Text note style={styles.itemDate}>
+                {moment.unix(item.date).format('DD.MM.YYYY HH:mm:ss')}
+              </Text>
+            </Right>
+          </ListItem>
         ))}
-      </View>
+      </List>
     );
   }
 }

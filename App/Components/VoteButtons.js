@@ -1,12 +1,15 @@
 import React, { PropTypes, Component } from 'react';
-import { Text, View, TouchableHighlight, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, StyleSheet } from 'react-native';
+import { Container, Text } from 'native-base';
 
 // Styles
 import styles, { VOTE_BUTTON_COLOR } from '../Containers/Styles/VoteScreenStyles';
+import { AppHeader } from './../Components/AppHeader';
 
 export class VoteButtons extends Component {
   static propTypes = {
     onVote: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
     status: PropTypes.string,
     uid: PropTypes.string,
   };
@@ -43,19 +46,19 @@ export class VoteButtons extends Component {
   }
 
   render() {
-    const { status } = this.props;
+    const { navigation } = this.props;
 
     return (
-      <View>
-        <View style={styles.section}>
-          <Text style={styles.sectionText}>
-            Vote now - {status}
-          </Text>
-        </View>
+      <Container>
+        <AppHeader
+          leftSideFn={navigation.goBack}
+          leftIcon="arrow-back"
+          title="Vote now"
+        />
         <View style={styles.voteContainer}>
           { this.generateButtons() }
         </View>
-      </View>
+      </Container>
     );
   }
 }

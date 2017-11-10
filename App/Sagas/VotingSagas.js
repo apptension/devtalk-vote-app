@@ -35,7 +35,6 @@ export function* sendVote(action) {
 
   try {
     yield firebase.database().ref('votingSession/votes').update({ [uid]: value });
-
     yield put(VotingActions.sendVoteSuccess(value));
   } catch (error) {
     console.error(error); // eslint-disable-line
@@ -43,9 +42,13 @@ export function* sendVote(action) {
 }
 
 export function* votingSaga() {
-  yield all([
-    takeLatest(VotingTypes.SEND_VOTE, sendVote),
-    takeLatest(VotingTypes.GET_STATUS, getStatus),
-  ]);
+  try {
+    yield all([
+      takeLatest(VotingTypes.SEND_VOTE, sendVote),
+      takeLatest(VotingTypes.GET_STATUS, getStatus),
+    ]);
+  } catch (error) {
+    console.error(error); // eslint-disable-line
+  }
 }
 

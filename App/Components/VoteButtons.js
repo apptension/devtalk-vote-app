@@ -51,8 +51,7 @@ export class VoteButtons extends Component {
     return (
       <Container>
         <AppHeader
-          leftSideFn={navigation.goBack}
-          leftIcon="arrow-back"
+          navigation={navigation}
           title="Vote now"
         />
         <View style={styles.voteContainer}>

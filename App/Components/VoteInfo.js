@@ -13,12 +13,10 @@ export class VoteInfo extends Component {
 
   render() {
     const { navigation } = this.props;
-
     return (
       <Container style={{ backgroundColor: colors.snow }}>
         <AppHeader
-          leftSideFn={navigation.goBack}
-          leftIcon="arrow-back"
+          navigation={navigation}
           title="Vote Info"
         />
         <Content>

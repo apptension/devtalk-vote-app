@@ -34,8 +34,7 @@ class VoteHistoryScreen extends Component {
     return (
       <Container style={{ backgroundColor: colors.snow }}>
         <AppHeader
-          leftSideFn={navigation.goBack}
-          leftIcon="arrow-back"
+          navigation={navigation}
           title="Vote History"
         />
         <Content>

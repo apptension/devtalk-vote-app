@@ -15,7 +15,7 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'MainScreen',
+  initialRouteName: 'VoteScreen',
   navigationOptions: {
     headerStyle: styles.header,
   },

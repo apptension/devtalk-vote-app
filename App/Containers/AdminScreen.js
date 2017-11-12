@@ -65,8 +65,7 @@ class AdminScreen extends Component {
     return (
       <Container style={{ backgroundColor: colors.snow }}>
         <AppHeader
-          leftSideFn={navigation.goBack}
-          leftIcon="arrow-back"
+          navigation={navigation}
           title="Admin Panel"
         />
         <Content style={styles.content}>

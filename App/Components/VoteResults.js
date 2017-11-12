@@ -31,8 +31,7 @@ export class VoteResults extends Component {
     return (
       <Container style={{ backgroundColor: colors.snow }}>
         <AppHeader
-          leftSideFn={navigation.goBack}
-          leftIcon="arrow-back"
+          navigation={navigation}
           title="Results"
         />
         <View style={styles.section}>
